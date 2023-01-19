@@ -1,0 +1,28 @@
+/* This is a program to compute the difference of 2 integers */
+
+const message = "Type two positive integers: " string;
+
+func begin() {	
+    var a, b, c int;
+
+    writeString(message);
+    a = readInt();
+    b = readInt();
+
+    c = findDifferene(a, b);
+    
+    writeInt(c);
+
+    return 0;
+}
+
+func findDifferene(a int, b int) int {
+    
+    while (a != b) {
+        if (a > b)
+            a = a - b;
+        else
+            a = b - a;
+    }
+    return a;
+}

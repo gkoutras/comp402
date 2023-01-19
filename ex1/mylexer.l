@@ -66,95 +66,95 @@
 	int line_num = 1; 
 %}
 
-IDENTIFIER      			[a-zA-Z][0-9a-zA-Z_]*
+IDENTIFIER      	[a-zA-Z][0-9a-zA-Z_]*
 
-CONST_DIGIT   				[0-9]
-CONST_INT  					{CONST_DIGIT}{CONST_DIGIT}*
+CONST_DIGIT   		[0-9]
+CONST_INT  		{CONST_DIGIT}{CONST_DIGIT}*
 
-CONST_DECIMAL 				("."{CONST_INT})|({CONST_INT}("."{CONST_INT}?)?)
-CONST_REAL    				{CONST_DECIMAL}([eE][+-]?{CONST_INT})?
+CONST_DECIMAL 		("."{CONST_INT})|({CONST_INT}("."{CONST_INT}?)?)
+CONST_REAL    		{CONST_DECIMAL}([eE][+-]?{CONST_INT})?
 
-CONST_ESCAPE_CHAR 		("\""|"\\"|"\r"|"\t"|"\n")
-CONST_COMMON_CHAR   		("-"|"+"|"*"|"/"|":"|"_"|"$"|"!"|"#"|"@"|"~"|"^"|"("|")")
-CONST_STRING  				("\"")([a-zA-Z0-9]|" "|{CONST_ESCAPE_CHAR}|{CONST_COMMON_CHAR})*("\"")	
+CONST_ESCAPE_CHAR 	("\""|"\\"|"\r"|"\t"|"\n")
+CONST_COMMON_CHAR   	("-"|"+"|"*"|"/"|":"|"_"|"$"|"!"|"#"|"@"|"~"|"^"|"("|")")
+CONST_STRING  		("\"")([a-zA-Z0-9]|" "|{CONST_ESCAPE_CHAR}|{CONST_COMMON_CHAR})*("\"")	
 
 %x comment
 
 %% /* Rules ------------------------------------------------------------------------------------ */
 
-int 							{ printf("(KEYWORLD INT)\t\t"); 		return TK_KW_INT; }
-real							{ printf("(KEYWORLD REAL)\t\t"); 	return TK_KW_REAL; }
-string 						{ printf("(KEYWORLD STRING)\t"); 	return TK_KW_STRING; }
-bool 							{ printf("(KEYWORLD BOOL)\t\t"); 	return TK_KW_BOOL; }
-true 							{ printf("(KEYWORLD TRUE)\t\t"); 	return TK_KW_TRUE; }
-false 						{ printf("(KEYWORLD FALSE)\t"); 		return TK_KW_FALSE; }
-var 							{ printf("(KEYWORLD VAR)\t\t"); 		return TK_KW_VAR; }
-const 						{ printf("(KEYWORLD CONST)\t"); 		return TK_KW_CONST; }
-if 							{ printf("(KEYWORLD IF)\t\t"); 		return TK_KW_IF; }
-else 							{ printf("(KEYWORLD ELSE)\t\t"); 	return TK_KW_ELSE; }
-for 							{ printf("(KEYWORLD FOR)\t\t"); 		return TK_KW_FOR; }
-while 						{ printf("(KEYWORLD WHILE)\t"); 		return TK_KW_WHILE; }
-break 						{ printf("(KEYWORLD BREAK)\t"); 		return TK_KW_BREAK; }
-continue 					{ printf("(KEYWORLD CONTINUE)\t"); 	return TK_KW_CONTINUE; }
-func							{ printf("(KEYWORLD FUNC)\t\t"); 	return TK_KW_FUNC; }
-nil							{ printf("(KEYWORLD NIL)\t\t"); 		return TK_KW_NIL; }
-return 						{ printf("(KEYWORLD RETURN)\t"); 	return TK_KW_RETURN; }
-begin 						{ printf("(KEYWORLD BEGIN)\t"); 		return TK_KW_BEGIN; }
+int 			{ printf("(KEYWORLD INT)\t\t"); 	return TK_KW_INT; }
+real			{ printf("(KEYWORLD REAL)\t\t"); 	return TK_KW_REAL; }
+string 			{ printf("(KEYWORLD STRING)\t"); 	return TK_KW_STRING; }
+bool 			{ printf("(KEYWORLD BOOL)\t\t"); 	return TK_KW_BOOL; }
+true 			{ printf("(KEYWORLD TRUE)\t\t"); 	return TK_KW_TRUE; }
+false 			{ printf("(KEYWORLD FALSE)\t"); 	return TK_KW_FALSE; }
+var 			{ printf("(KEYWORLD VAR)\t\t"); 	return TK_KW_VAR; }
+const 			{ printf("(KEYWORLD CONST)\t"); 	return TK_KW_CONST; }
+if 			{ printf("(KEYWORLD IF)\t\t"); 		return TK_KW_IF; }
+else 			{ printf("(KEYWORLD ELSE)\t\t"); 	return TK_KW_ELSE; }
+for 			{ printf("(KEYWORLD FOR)\t\t"); 	return TK_KW_FOR; }
+while 			{ printf("(KEYWORLD WHILE)\t"); 	return TK_KW_WHILE; }
+break 			{ printf("(KEYWORLD BREAK)\t"); 	return TK_KW_BREAK; }
+continue 		{ printf("(KEYWORLD CONTINUE)\t"); 	return TK_KW_CONTINUE; }
+func			{ printf("(KEYWORLD FUNC)\t\t"); 	return TK_KW_FUNC; }
+nil			{ printf("(KEYWORLD NIL)\t\t"); 	return TK_KW_NIL; }
+return 			{ printf("(KEYWORLD RETURN)\t"); 	return TK_KW_RETURN; }
+begin 			{ printf("(KEYWORLD BEGIN)\t"); 	return TK_KW_BEGIN; }
 
-"="							{ printf("(OP ASSIGNMENT)\t\t"); 	return TK_OP_ASSIGNMENT; }
-"+"	    					{ printf("(OP PLUS)\t\t"); 			return TK_OP_PLUS; }
-"-"	    					{ printf("(OP MINUS)\t\t"); 			return TK_OP_MINUS; }
-"*"	    					{ printf("(OP MULTIPLICATION)\t"); 	return TK_OP_MULTIPLICATION; }
-"/"	    					{ printf("(OP DIVISION)\t\t"); 		return TK_OP_DIVISION; }
-"%"	    					{ printf("(OP MODULO)\t\t"); 			return TK_OP_MODULO; }
-"**"							{ printf("(OP POWER)\t\t"); 		return TK_OP_POWER; } 
-"=="							{ printf("(OP EQUAL)\t\t"); 			return TK_OP_EQUAL; }
-"<"							{ printf("(OP LESS)\t\t"); 			return TK_OP_LESS; }
-">"							{ printf("(OP GREATER)\t\t"); 		return TK_OP_GREATER; }
-"<="							{ printf("(OP LESS EQUAL)\t\t"); 	return TK_OP_LESS_EQUAL; }
-">="							{ printf("(OP GREATER EQUAL)\t"); 	return TK_OP_GREATER_EQUAL; }
-"!="							{ printf("(OP NOT EQUAL)\t\t"); 		return TK_OP_NOT_EQUAL; }
+"="			{ printf("(OP ASSIGNMENT)\t\t"); 	return TK_OP_ASSIGNMENT; }
+"+"	    		{ printf("(OP PLUS)\t\t"); 		return TK_OP_PLUS; }
+"-"	    		{ printf("(OP MINUS)\t\t"); 		return TK_OP_MINUS; }
+"*"	    		{ printf("(OP MULTIPLICATION)\t"); 	return TK_OP_MULTIPLICATION; }
+"/"	    		{ printf("(OP DIVISION)\t\t"); 		return TK_OP_DIVISION; }
+"%"	    		{ printf("(OP MODULO)\t\t"); 		return TK_OP_MODULO; }
+"**"			{ printf("(OP POWER)\t\t"); 		return TK_OP_POWER; } 
+"=="			{ printf("(OP EQUAL)\t\t"); 		return TK_OP_EQUAL; }
+"<"			{ printf("(OP LESS)\t\t"); 		return TK_OP_LESS; }
+">"			{ printf("(OP GREATER)\t\t"); 		return TK_OP_GREATER; }
+"<="			{ printf("(OP LESS EQUAL)\t\t"); 	return TK_OP_LESS_EQUAL; }
+">="			{ printf("(OP GREATER EQUAL)\t"); 	return TK_OP_GREATER_EQUAL; }
+"!="			{ printf("(OP NOT EQUAL)\t\t"); 	return TK_OP_NOT_EQUAL; }
 
-and 							{ printf("(OP AND)\t\t\t"); 			return TK_OP_AND; }
-or 							{ printf("(OP OR)\t\t\t"); 			return TK_OP_OR; }
-not 							{ printf("(OP NOT)\t\t\t"); 			return TK_OP_NOT; }
+and 			{ printf("(OP AND)\t\t\t"); 		return TK_OP_AND; }
+or 			{ printf("(OP OR)\t\t\t"); 		return TK_OP_OR; }
+not 			{ printf("(OP NOT)\t\t\t"); 		return TK_OP_NOT; }
 
-";"	   					{ printf("(SEMICOLON)\t\t"); 			return TK_DL_SEMICOLON; } 
-"("	    					{ printf("(LEFT PARENTHESIS)\t"); 	return TK_DL_LEFT_PARENTHESIS; } 
-")"	    					{ printf("(RIGHT PARENTHESIS)\t"); 	return TK_DL_RIGHT_PARENTHESIS; } 
-","	    					{ printf("(COMMA)\t\t\t"); 			return TK_DL_COMMA; } 
-"["	    					{ printf("(LEFT SQR BRACKET)\t"); 	return TK_DL_LEFT_SQUARE_BRACKET; } 
-"]"	    					{ printf("(RIGHT SQR BRACKET)\t"); 	return TK_DL_RIGHT_SQUARE_BRACKET; } 
-"{"	    					{ printf("(LEFT CRL BRACKET)\t"); 	return TK_DL_LEFT_CURLY_BRACKET; } 
-"}"	    					{ printf("(RIGHT CRL BRACKET)\t"); 	return TK_DL_RIGHT_CURLY_BRACKET; } 
-":"							{ printf("(COLON)\t\t\t"); 			return TK_DL_COLON; }
+";"	   		{ printf("(SEMICOLON)\t\t"); 		return TK_DL_SEMICOLON; } 
+"("	    		{ printf("(LEFT PARENTHESIS)\t"); 	return TK_DL_LEFT_PARENTHESIS; } 
+")"	    		{ printf("(RIGHT PARENTHESIS)\t"); 	return TK_DL_RIGHT_PARENTHESIS; } 
+","	    		{ printf("(COMMA)\t\t\t"); 		return TK_DL_COMMA; } 
+"["	    		{ printf("(LEFT SQR BRACKET)\t"); 	return TK_DL_LEFT_SQUARE_BRACKET; } 
+"]"	    		{ printf("(RIGHT SQR BRACKET)\t"); 	return TK_DL_RIGHT_SQUARE_BRACKET; } 
+"{"	    		{ printf("(LEFT CRL BRACKET)\t"); 	return TK_DL_LEFT_CURLY_BRACKET; } 
+"}"	    		{ printf("(RIGHT CRL BRACKET)\t"); 	return TK_DL_RIGHT_CURLY_BRACKET; } 
+":"			{ printf("(COLON)\t\t\t"); 		return TK_DL_COLON; }
 
-readString  				{ printf("(readString)\t\t"); 		return TK_FN_READSTRING; }
-readInt  					{ printf("(readInt)\t\t"); 			return TK_FN_READINT; }
-readReal						{ printf("(readReal)\t\t");			return TK_FN_READREAL; }
-writeString 				{ printf("(writeString)\t\t"); 		return TK_FN_WRITESTRING; }
-writeInt 					{ printf("(writeInt)\t\t");			return TK_FN_WRITEINT; }
-writeReal					{ printf("(writeReal)\t\t"); 			return TK_FN_WRITEREAL; }
+readString  		{ printf("(readString)\t\t"); 		return TK_FN_READSTRING; }
+readInt  		{ printf("(readInt)\t\t"); 		return TK_FN_READINT; }
+readReal		{ printf("(readReal)\t\t");		return TK_FN_READREAL; }
+writeString 		{ printf("(writeString)\t\t"); 		return TK_FN_WRITESTRING; }
+writeInt 		{ printf("(writeInt)\t\t");		return TK_FN_WRITEINT; }
+writeReal		{ printf("(writeReal)\t\t"); 		return TK_FN_WRITEREAL; }
 
-{IDENTIFIER}				{ printf("(IDENTIFIER)\t\t"); 		return TK_IDENTIFIER; }
-{CONST_INT}					{ printf("(CONSTANT INT)\t\t"); 		return TK_CONST_INT; }
-{CONST_REAL}				{ printf("(CONSTANT REAL)\t\t"); 	return TK_CONST_REAL; }
-{CONST_STRING}				{ printf("(CONSTANT STRING)\t"); 	return TK_CONST_STRING; }
+{IDENTIFIER}		{ printf("(IDENTIFIER)\t\t"); 		return TK_IDENTIFIER; }
+{CONST_INT}		{ printf("(CONSTANT INT)\t\t"); 	return TK_CONST_INT; }
+{CONST_REAL}		{ printf("(CONSTANT REAL)\t\t"); 	return TK_CONST_REAL; }
+{CONST_STRING}		{ printf("(CONSTANT STRING)\t"); 	return TK_CONST_STRING; }
 
-"//"[^\n]*					/* eat line comments */
+"//"[^\n]*		/* eat line comments */
 
-"/*"							BEGIN(comment);
+"/*"			BEGIN(comment);
 <comment>[^*\n]*        /* eat anything that's not a '*' */
 <comment>"*"+[^*/\n]*	/* eat up '*'s not followed by ')'s */
 <comment>\n             ++line_num;
 <comment>"*"+"/"        BEGIN(INITIAL);
 
-[ \r\t]						/* skip whitespace */
-\n 							++line_num;
+[ \r\t]			/* skip whitespace */
+\n 			++line_num;
 
-<<EOF>> 						return EOF;
+<<EOF>> 		return EOF;
 
-.             				{ printf(" unrecognised\t        ~Line %d: Token: %s - Lexical Error\n", line_num, yytext); }
+.             		{ printf(" unrecognised\t        ~Line %d: Token: %s - Lexical Error\n", line_num, yytext); }
 
 %% /* User Code -------------------------------------------------------------------------------- */
 
